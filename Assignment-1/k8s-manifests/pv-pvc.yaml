@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+spec:
+  capacity:
+    storage: 10Gi  # Adjust the size as needed
+  accessModes:
+    - ReadWriteOnce  # Allows one pod to read/write
+  hostPath:
+    path: /data/mongo  # This path will be created on the host machine
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce  # Ensure this matches the PV access mode
+  resources:
+    requests:
+      storage: 10Gi  # Must be less than or equal to the PV capacity
