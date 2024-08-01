@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: api-pv
+  namespace: two
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "standard"  # Use the available storage class
+  local:
+    path: /mnt/data/api
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - kind-control-plane
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: api-pvc
+  namespace: two
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "standard"  # Use the available storage class
+  resources:
+    requests:
+      storage: 1Gi
