@@ -1,13 +1,13 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt
+  name: letsencrypt-staging
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
-    email: iamjignyasamishra@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: iamjignyasa@gmail.com
     privateKeySecretRef:
-      name: letsencrypt
+      name: letsencrypt-staging
     solvers:
     - http01:
         ingress:

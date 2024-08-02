@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongo-client
+  namespace: two
+spec:
+  containers:
+  - name: mongo-client
+    image: bitnami/mongodb-client:latest
+    command: ["sleep"]
+    args: ["3600"]
