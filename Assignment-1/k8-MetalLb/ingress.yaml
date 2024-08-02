@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-one-two
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: metallb.com
+    http:
+      paths:
+      - path: /one
+        pathType: Prefix
+        backend:
+          service:
+            name: app-one
+            port:
+              number: 8080
+      - path: /two
+        pathType: Prefix
+        backend:
+          service:
+            name: app-two
+            port:
+              number: 8080
