@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kubecert
+spec:
+  secretName: demo
+  issuerRef:
+    name: kubeissuer
+    kind: ClusterIssuer
+  dnsNames:
+  - metallb.com

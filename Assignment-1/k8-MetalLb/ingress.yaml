@@ -1,40 +1,17 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: app-one-two
-#   namespace: default
-#   annotations:
-#     nginx.ingress.kubernetes.io/rewrite-target: /
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#   - host: metallb.com
-#     http:
-#       paths:
-#       - path: /one
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: app-one
-#             port:
-#               number: 8080
-#       - path: /two
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: app-two
-#             port:
-#               number: 8080
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app-one-two
   namespace: default
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: kubeissuer
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx # Corrected field name
+  tls:
+  - hosts:
+    - metallb.com
+    secretName: metallb-tls
   rules:
   - host: metallb.com
     http:
@@ -53,8 +30,3 @@ spec:
             name: app-two
             port:
               number: 8080
-  tls:
-  - hosts:
-    - metallb.com
-    secretName: metallb-tls
-
