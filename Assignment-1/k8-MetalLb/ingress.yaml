@@ -2,16 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app-one-two
-  namespace: default
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    cert-manager.io/cluster-issuer: kubeissuer
 spec:
-  ingressClassName: nginx # Corrected field name
+  ingressClassName: nginx
   tls:
-  - hosts:
-    - metallb.com
-    secretName: metallb-tls
+    - hosts:
+      - metallb.com
+      secretName: letsencrypt-production
   rules:
   - host: metallb.com
     http:
@@ -30,3 +26,4 @@ spec:
             name: app-two
             port:
               number: 8080
+  
