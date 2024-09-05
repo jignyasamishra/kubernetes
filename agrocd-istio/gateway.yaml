@@ -1,10 +1,10 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
- name: canary-gateway
+ name: argo-gateway
 spec:
  selector:
-   istio: ingressgateway # using Istio IngressGateway
+   istio: ingressgateway # use the default IngressGateway
  servers:
  - port:
      number: 80
